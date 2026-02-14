@@ -13,7 +13,7 @@ body {
 
 .container {
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 15px;
     max-width: 500px;
     margin: auto;
@@ -22,8 +22,8 @@ body {
 
 button {
     display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
+    margin: 12px auto;
+    padding: 12px 20px;
     border: none;
     border-radius: 10px;
     background-color: #ff4d6d;
@@ -51,11 +51,11 @@ button:hover {
 
 .modal-content {
     background: white;
-    margin: 20% auto;
-    padding: 20px;
-    border-radius: 15px;
-    width: 80%;
-    max-width: 400px;
+    margin: 30% auto;   /* moved popup lower */
+    padding: 30px;      /* more space inside */
+    border-radius: 20px;
+    width: 85%;
+    max-width: 420px;
     animation: pop 0.3s ease;
 }
 
@@ -64,14 +64,14 @@ button:hover {
     to {transform: scale(1);}
 }
 
-.close-btn {
-    background: black;
+.result-text {
+    font-size: 24px;   /* bigger result */
+    font-weight: bold;
+    margin: 25px 0;    /* more vertical space */
 }
 
-.result-text {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 15px 0;
+.close-btn {
+    background: black;
 }
 </style>
 </head>
@@ -87,67 +87,4 @@ button:hover {
 <button onclick="addScore(3)">Actually ready 😳</button>
 
 <p>2. Your phone battery right now:</p>
-<button onclick="addScore(1)">3% but surviving 🔋</button>
-<button onclick="addScore(2)">47% safe</button>
-<button onclick="addScore(3)">100% – suspicious 👀</button>
-
-<p>3. When drama starts:</p>
-<button onclick="addScore(1)">I AM the drama 😈</button>
-<button onclick="addScore(2)">Watching silently 👀</button>
-<button onclick="addScore(3)">Blocking everyone 🚫</button>
-
-<p>4. In group chat you:</p>
-<button onclick="addScore(1)">Send memes only 😂</button>
-<button onclick="addScore(2)">Reply after 3 business days 🐢</button>
-<button onclick="addScore(3)">Admin but useless 🤡</button>
-
-<p>5. If aliens land tomorrow:</p>
-<button onclick="addScore(1)">I’m going with them 👽</button>
-<button onclick="addScore(2)">Going live on Facebook 📱</button>
-<button onclick="addScore(3)">Going back to sleep 😴</button>
-
-<button onclick="showResult()">See My Result 🎉</button>
-</div>
-
-<!-- POPUP -->
-<div id="resultModal" class="modal">
-  <div class="modal-content">
-    <div class="result-text" id="resultText"></div>
-    <button onclick="restartQuiz()">Play Again 🔄</button>
-    <button class="close-btn" onclick="closeModal()">Close ❌</button>
-  </div>
-</div>
-
-<script>
-let score = 0;
-
-function addScore(points) {
-    score += points;
-}
-
-function showResult() {
-    let result = "";
-    if (score <= 7) {
-        result = "😂 Certified Chaos Distributor!";
-    } else if (score <= 11) {
-        result = "👀 Silent FBI Agent!";
-    } else {
-        result = "🤡 Professional Overthinker!";
-    }
-
-    document.getElementById("resultText").innerText = result;
-    document.getElementById("resultModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("resultModal").style.display = "none";
-}
-
-function restartQuiz() {
-    score = 0;
-    closeModal();
-}
-</script>
-
-</body>
-</html>
+<button onclick="addScore(1)">
