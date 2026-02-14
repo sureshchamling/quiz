@@ -1,122 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>What Type of Facebook Human Are You?</title>
-
 <style>
-body {
+  body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    padding: 20px;
+    margin: 0;
     text-align: center;
-    padding: 20px;
-}
-
-.container {
+  }
+  .container {
+    max-width: 480px;
     background: white;
-    padding: 20px;
+    margin: 40px auto;
     border-radius: 15px;
-    max-width: 500px;
-    margin: auto;
+    padding: 25px 20px 40px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-button {
-    display: block;
-    margin: 10px auto;
-    padding: 12px 20px;
-    border: none;
+  }
+  h2 {
+    margin-top: 0;
+  }
+  .question {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .answers button {
+    width: 100%;
+    padding: 12px 0;
+    margin: 10px 0;
     border-radius: 10px;
+    border: none;
     background-color: #ff4d6d;
     color: white;
     font-size: 16px;
     cursor: pointer;
-    width: 90%;
-    transition: 0.2s;
-}
-
-button:hover {
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  .answers button:hover {
     background-color: #e63950;
     transform: scale(1.03);
-}
-
-/* POPUP STYLE */
-.modal {
+  }
+  .modal {
     display: none;
     position: fixed;
     z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-}
-
-.modal-content {
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
     background: white;
-    margin: 20% auto;
-    padding: 25px;
     border-radius: 15px;
+    padding: 30px 25px;
+    max-width: 360px;
     width: 85%;
-    max-width: 400px;
     animation: pop 0.3s ease;
-}
-
-@keyframes pop {
+  }
+  @keyframes pop {
     from {transform: scale(0.7);}
     to {transform: scale(1);}
-}
-
-.result-text {
+  }
+  .result-text {
     font-size: 22px;
     font-weight: bold;
-    margin: 35px 0;   /* Extra spacing */
+    margin: 35px 0;
     padding: 18px;
     border-radius: 12px;
-}
-
-.close-btn {
+  }
+  .modal button {
+    margin-top: 10px;
+  }
+  .close-btn {
     background: black;
-}
+  }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-<h2>😂 What Type of Facebook Human Are You?</h2>
-<p>Pick one answer for each question!</p>
-
-<p>1. When someone says “I’m outside” you:</p>
-<button onclick="addScore(1)">Still in the shower 🚿</button>
-<button onclick="addScore(2)">Just woke up 😴</button>
-<button onclick="addScore(3)">Actually ready 😳</button>
-
-<p>2. Your phone battery right now:</p>
-<button onclick="addScore(1)">3% but surviving 🔋</button>
-<button onclick="addScore(2)">47% safe</button>
-<button onclick="addScore(3)">100% – suspicious 👀</button>
-
-<p>3. When drama starts:</p>
-<button onclick="addScore(1)">I AM the drama 😈</button>
-<button onclick="addScore(2)">Watching silently 👀</button>
-<button onclick="addScore(3)">Blocking everyone 🚫</button>
-
-<p>4. In group chat you:</p>
-<button onclick="addScore(1)">Send memes only 😂</button>
-<button onclick="addScore(2)">Reply after 3 business days 🐢</button>
-<button onclick="addScore(3)">Admin but useless 🤡</button>
-
-<p>5. If aliens land tomorrow:</p>
-<button onclick="addScore(1)">I’m going with them 👽</button>
-<button onclick="addScore(2)">Going live on Facebook 📱</button>
-<button onclick="addScore(3)">Going back to sleep 😴</button>
-
-<button onclick="showResult()">See My Result 🎉</button>
+  <h2>😂 What Type of Facebook Human Are You?</h2>
+  <p>Pick one answer for each question!</p>
+  
+  <div id="quiz">
+    <!-- Question and answers will load here -->
+  </div>
 </div>
 
-<!-- RESULT POPUP -->
-<div id="resultModal" class="modal">
+<!-- Result Popup -->
+<div id="resultModal" class="modal" style="display:flex;">
   <div class="modal-content">
     <div class="result-text" id="resultText"></div>
     <button onclick="restartQuiz()">Play Again 🔄</button>
@@ -125,45 +100,108 @@ button:hover {
 </div>
 
 <script>
+const questions = [
+  {
+    q: '1. When someone says “I’m outside” you:',
+    answers: [
+      { text: 'Still in the shower 🚿', points: 1 },
+      { text: 'Just woke up 😴', points: 2 },
+      { text: 'Actually ready 😳', points: 3 }
+    ]
+  },
+  {
+    q: '2. Your phone battery right now:',
+    answers: [
+      { text: '3% but surviving 🔋', points: 1 },
+      { text: '47% safe', points: 2 },
+      { text: '100% – suspicious 👀', points: 3 }
+    ]
+  },
+  {
+    q: '3. When drama starts:',
+    answers: [
+      { text: 'I AM the drama 😈', points: 1 },
+      { text: 'Watching silently 👀', points: 2 },
+      { text: 'Blocking everyone 🚫', points: 3 }
+    ]
+  },
+  {
+    q: '4. In group chat you:',
+    answers: [
+      { text: 'Send memes only 😂', points: 1 },
+      { text: 'Reply after 3 business days 🐢', points: 2 },
+      { text: 'Admin but useless 🤡', points: 3 }
+    ]
+  },
+  {
+    q: '5. If aliens land tomorrow:',
+    answers: [
+      { text: 'I’m going with them 👽', points: 1 },
+      { text: 'Going live on Facebook 📱', points: 2 },
+      { text: 'Going back to sleep 😴', points: 3 }
+    ]
+  }
+];
+
+let currentQuestion = 0;
 let score = 0;
 
-function addScore(points) {
-    score += points;
+const quizEl = document.getElementById('quiz');
+const modal = document.getElementById('resultModal');
+const resultText = document.getElementById('resultText');
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  let html = `<div class="question">${q.q}</div><div class="answers">`;
+  q.answers.forEach((ans, idx) => {
+    html += `<button onclick="selectAnswer(${ans.points})">${ans.text}</button>`;
+  });
+  html += '</div>';
+  quizEl.innerHTML = html;
 }
-
+function selectAnswer(points) {
+  score += points;
+  currentQuestion++;
+  if(currentQuestion < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
 function showResult() {
-    let result = "";
-    let color = "";
-
-    if (score <= 7) {
-        result = "😂 Certified Chaos Distributor!";
-        color = "#ff4d6d";   // Pink/Red
-    } 
-    else if (score <= 11) {
-        result = "👀 Silent FBI Agent!";
-        color = "#4361ee";   // Blue
-    } 
-    else {
-        result = "🤡 Professional Overthinker!";
-        color = "#2a9d8f";   // Green
-    }
-
-    const resultText = document.getElementById("resultText");
-    resultText.innerText = result;
-    resultText.style.backgroundColor = color;
-    resultText.style.color = "white";
-
-    document.getElementById("resultModal").style.display = "block";
+  let result = '';
+  let color = '';
+  if(score <= 7) {
+    result = '😂 Certified Chaos Distributor!';
+    color = '#ff4d6d';
+  } else if(score <= 11) {
+    result = '👀 Silent FBI Agent!';
+    color = '#4361ee';
+  } else {
+    result = '🤡 Professional Overthinker!';
+    color = '#2a9d8f';
+  }
+  resultText.innerText = result;
+  resultText.style.backgroundColor = color;
+  resultText.style.color = 'white';
+  modal.style.display = 'flex';
+  quizEl.innerHTML = '';  // clear quiz
 }
 
 function closeModal() {
-    document.getElementById("resultModal").style.display = "none";
+  modal.style.display = 'none';
 }
 
 function restartQuiz() {
-    score = 0;
-    closeModal();
+  score = 0;
+  currentQuestion = 0;
+  modal.style.display = 'none';
+  loadQuestion();
 }
+
+// Start quiz on load
+loadQuestion();
+modal.style.display = 'none';
 </script>
 
 </body>
