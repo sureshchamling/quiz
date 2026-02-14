@@ -10,6 +10,7 @@ body {
     text-align: center;
     padding: 20px;
 }
+
 .container {
     background: white;
     padding: 20px;
@@ -18,6 +19,7 @@ body {
     margin: auto;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
 button {
     display: block;
     margin: 10px auto;
@@ -28,14 +30,48 @@ button {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    width: 90%;
 }
+
 button:hover {
     background-color: #e63950;
 }
-#result {
+
+/* POPUP STYLE */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background: white;
+    margin: 20% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 400px;
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    from {transform: scale(0.7);}
+    to {transform: scale(1);}
+}
+
+.close-btn {
+    background: black;
+}
+
+.result-text {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 20px;
+    margin: 15px 0;
 }
 </style>
 </head>
@@ -45,7 +81,6 @@ button:hover {
 <h2>😂 What Type of Facebook Human Are You?</h2>
 <p>Pick one answer for each question!</p>
 
-<div id="quiz">
 <p>1. When someone says “I’m outside” you:</p>
 <button onclick="addScore(1)">Still in the shower 🚿</button>
 <button onclick="addScore(2)">Just woke up 😴</button>
@@ -74,7 +109,13 @@ button:hover {
 <button onclick="showResult()">See My Result 🎉</button>
 </div>
 
-<div id="result"></div>
+<!-- POPUP -->
+<div id="resultModal" class="modal">
+  <div class="modal-content">
+    <div class="result-text" id="resultText"></div>
+    <button onclick="restartQuiz()">Play Again 🔄</button>
+    <button class="close-btn" onclick="closeModal()">Close ❌</button>
+  </div>
 </div>
 
 <script>
@@ -85,15 +126,26 @@ function addScore(points) {
 }
 
 function showResult() {
-    let resultText = "";
+    let result = "";
     if (score <= 7) {
-        resultText = "😂 Certified Chaos Distributor!";
+        result = "😂 Certified Chaos Distributor!";
     } else if (score <= 11) {
-        resultText = "👀 Silent FBI Agent!";
+        result = "👀 Silent FBI Agent!";
     } else {
-        resultText = "🤡 Professional Overthinker!";
+        result = "🤡 Professional Overthinker!";
     }
-    document.getElementById("result").innerHTML = resultText;
+
+    document.getElementById("resultText").innerText = result;
+    document.getElementById("resultModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("resultModal").style.display = "none";
+}
+
+function restartQuiz() {
+    score = 0;
+    closeModal();
 }
 </script>
 
