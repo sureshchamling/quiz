@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>What Type of Facebook Human Are You?</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    padding: 20px;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #e63950;
+}
+#result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>😂 What Type of Facebook Human Are You?</h2>
+<p>Pick one answer for each question!</p>
+
+<div id="quiz">
+<p>1. When someone says “I’m outside” you:</p>
+<button onclick="addScore(1)">Still in the shower 🚿</button>
+<button onclick="addScore(2)">Just woke up 😴</button>
+<button onclick="addScore(3)">Actually ready 😳</button>
+
+<p>2. Your phone battery right now:</p>
+<button onclick="addScore(1)">3% but surviving 🔋</button>
+<button onclick="addScore(2)">47% safe</button>
+<button onclick="addScore(3)">100% – suspicious 👀</button>
+
+<p>3. When drama starts:</p>
+<button onclick="addScore(1)">I AM the drama 😈</button>
+<button onclick="addScore(2)">Watching silently 👀</button>
+<button onclick="addScore(3)">Blocking everyone 🚫</button>
+
+<p>4. In group chat you:</p>
+<button onclick="addScore(1)">Send memes only 😂</button>
+<button onclick="addScore(2)">Reply after 3 business days 🐢</button>
+<button onclick="addScore(3)">Admin but useless 🤡</button>
+
+<p>5. If aliens land tomorrow:</p>
+<button onclick="addScore(1)">I’m going with them 👽</button>
+<button onclick="addScore(2)">Going live on Facebook 📱</button>
+<button onclick="addScore(3)">Going back to sleep 😴</button>
+
+<button onclick="showResult()">See My Result 🎉</button>
+</div>
+
+<div id="result"></div>
+</div>
+
+<script>
+let score = 0;
+
+function addScore(points) {
+    score += points;
+}
+
+function showResult() {
+    let resultText = "";
+    if (score <= 7) {
+        resultText = "😂 Certified Chaos Distributor!";
+    } else if (score <= 11) {
+        resultText = "👀 Silent FBI Agent!";
+    } else {
+        resultText = "🤡 Professional Overthinker!";
+    }
+    document.getElementById("result").innerHTML = resultText;
+}
+</script>
+
+</body>
+</html>
