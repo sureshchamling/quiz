@@ -5,44 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>What Type of Facebook Human Are You?</title>
 <style>
+  /* Body */
   body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
     padding: 20px;
     margin: 0;
     text-align: center;
   }
+
+  /* Container */
   .container {
     max-width: 480px;
-    background: white;
+    background: #ffffffdd;
     margin: 40px auto;
-    border-radius: 15px;
-    padding: 25px 20px 40px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    padding: 30px 25px 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   }
+
   h2 {
     margin-top: 0;
+    color: #222;
   }
+
   .question {
     font-weight: bold;
     margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
   }
+
+  /* Answer buttons */
   .answers button {
     width: 100%;
-    padding: 12px 0;
-    margin: 10px 0;
-    border-radius: 10px;
+    padding: 14px 0;
+    margin: 12px 0;
+    border-radius: 12px;
     border: none;
-    background-color: #ff4d6d;
-    color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: 0.2s;
+    color: #fff;
   }
+
+  /* Modern button colors */
+  .answers button:nth-child(1) { background-color: #4caf50; }
+  .answers button:nth-child(2) { background-color: #2196f3; }
+  .answers button:nth-child(3) { background-color: #9c27b0; }
+
   .answers button:hover {
-    background-color: #e63950;
-    transform: scale(1.03);
+    transform: scale(1.05);
+    filter: brightness(1.1);
   }
+
+  /* Popup modal */
   .modal {
     display: none;
     position: fixed;
@@ -52,31 +69,51 @@
     justify-content: center;
     align-items: center;
   }
+
   .modal-content {
-    background: white;
-    border-radius: 15px;
-    padding: 30px 25px;
-    max-width: 360px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px 30px;
+    max-width: 380px;
     width: 85%;
     animation: pop 0.3s ease;
+    text-align: center;
   }
+
   @keyframes pop {
     from {transform: scale(0.7);}
     to {transform: scale(1);}
   }
+
+  /* Result text */
   .result-text {
     font-size: 22px;
     font-weight: bold;
     margin: 35px 0;
-    padding: 18px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
   }
+
+  /* Modal buttons */
   .modal button {
-    margin-top: 10px;
+    margin-top: 12px;
+    padding: 12px 0;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
   }
-  .close-btn {
-    background: black;
+
+  .modal button:hover {
+    transform: scale(1.05);
   }
+
+  .close-btn { background-color: #555; color: #fff; }
+  .restart-btn { background-color: #28a745; color: #fff; }
+
 </style>
 </head>
 <body>
@@ -94,7 +131,7 @@
 <div id="resultModal" class="modal" style="display:flex;">
   <div class="modal-content">
     <div class="result-text" id="resultText"></div>
-    <button onclick="restartQuiz()">Play Again 🔄</button>
+    <button class="restart-btn" onclick="restartQuiz()">Play Again 🔄</button>
     <button class="close-btn" onclick="closeModal()">Close ❌</button>
   </div>
 </div>
@@ -153,12 +190,13 @@ const resultText = document.getElementById('resultText');
 function loadQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question">${q.q}</div><div class="answers">`;
-  q.answers.forEach((ans, idx) => {
+  q.answers.forEach(ans => {
     html += `<button onclick="selectAnswer(${ans.points})">${ans.text}</button>`;
   });
   html += '</div>';
   quizEl.innerHTML = html;
 }
+
 function selectAnswer(points) {
   score += points;
   currentQuestion++;
@@ -168,24 +206,24 @@ function selectAnswer(points) {
     showResult();
   }
 }
+
 function showResult() {
   let result = '';
   let color = '';
   if(score <= 7) {
     result = '😂 Certified Chaos Distributor!';
-    color = '#ff4d6d';
+    color = '#4caf50'; // Green
   } else if(score <= 11) {
     result = '👀 Silent FBI Agent!';
-    color = '#4361ee';
+    color = '#2196f3'; // Blue
   } else {
     result = '🤡 Professional Overthinker!';
-    color = '#2a9d8f';
+    color = '#9c27b0'; // Purple
   }
   resultText.innerText = result;
   resultText.style.backgroundColor = color;
-  resultText.style.color = 'white';
   modal.style.display = 'flex';
-  quizEl.innerHTML = '';  // clear quiz
+  quizEl.innerHTML = '';
 }
 
 function closeModal() {
@@ -199,7 +237,7 @@ function restartQuiz() {
   loadQuestion();
 }
 
-// Start quiz on load
+// Start quiz
 loadQuestion();
 modal.style.display = 'none';
 </script>
